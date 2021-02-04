@@ -18,31 +18,31 @@ public:
 
 	DequeIterator& operator++ ()
 	{
-		m_Ptr=m_Ptr->next;//указываем на следующий
+		m_Ptr=m_Ptr->next;//СѓРєР°Р·С‹РІР°РµРј РЅР° СЃР»РµРґСѓСЋС‰РёР№
 		return *this;
 	}
 
 	DequeIterator operator++ (int)
 	{
 		DequeIterator temp = *this;
-		++(*this);//используем уже сделанный префиксный
+		++(*this);//РёСЃРїРѕР»СЊР·СѓРµРј СѓР¶Рµ СЃРґРµР»Р°РЅРЅС‹Р№ РїСЂРµС„РёРєСЃРЅС‹Р№
 		return temp;
 	}
 
 	DequeIterator& operator-- ()
 	{
-		m_Ptr = m_Ptr->prev;//указываем на предыдущий
+		m_Ptr = m_Ptr->prev;//СѓРєР°Р·С‹РІР°РµРј РЅР° РїСЂРµРґС‹РґСѓС‰РёР№
 		return *this;
 	}
 
 	DequeIterator operator-- (int)
 	{
 		DequeIterator temp = *this;
-		--(*this);//используем уже сделанный префиксный
+		--(*this);//РёСЃРїРѕР»СЊР·СѓРµРј СѓР¶Рµ СЃРґРµР»Р°РЅРЅС‹Р№ РїСЂРµС„РёРєСЃРЅС‹Р№
 		return temp;
 	}
 
-	ReferenceType operator[](int index)//не пригодился, но в теории может по индексу как бы давать значение
+	ReferenceType operator[](int index)//РЅРµ РїСЂРёРіРѕРґРёР»СЃСЏ, РЅРѕ РІ С‚РµРѕСЂРёРё РјРѕР¶РµС‚ РїРѕ РёРЅРґРµРєСЃСѓ РєР°Рє Р±С‹ РґР°РІР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ
 	{
 		int i = 0;
 		PointerType copy = m_Ptr;
@@ -66,12 +66,12 @@ public:
 
 	bool operator==(const DequeIterator& operand) const
 	{
-		return m_Ptr == operand.m_Ptr;//просто сравнение
+		return m_Ptr == operand.m_Ptr;//РїСЂРѕСЃС‚Рѕ СЃСЂР°РІРЅРµРЅРёРµ
 	}
 
 	bool operator!=(const DequeIterator& operand) const
 	{
-		return !(*this == operand);//используем уже созданный оператор ==
+		return !(*this == operand);//РёСЃРїРѕР»СЊР·СѓРµРј СѓР¶Рµ СЃРѕР·РґР°РЅРЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ ==
 	}
 
 	PointerType m_Ptr;
@@ -84,9 +84,9 @@ public:
 	class Node {
 	public:
 		Type data;
-		Node* prev, * next; // Указатели
+		Node* prev, * next; // РЈРєР°Р·Р°С‚РµР»Рё
 
-		static Node* create(Type data) { // Функция создания нового листочка списка
+		static Node* create(Type data) { // Р¤СѓРЅРєС†РёСЏ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕРіРѕ Р»РёСЃС‚РѕС‡РєР° СЃРїРёСЃРєР°
 			Node* newleaf = new Node;
 			newleaf->data = data;
 			newleaf->prev = newleaf->next = NULL;
@@ -95,42 +95,42 @@ public:
 	};
 	
 	using ValueType = Node;
-	using Iterator = DequeIterator<Deque<Type>>;//т.е. теперь обращаемся как к Iterator
+	using Iterator = DequeIterator<Deque<Type>>;//С‚.Рµ. С‚РµРїРµСЂСЊ РѕР±СЂР°С‰Р°РµРјСЃСЏ РєР°Рє Рє Iterator
 
 	Node* first;
 	Node* last;
 	int volume;
 
-	Deque() { // Конструктор по умолчанию
+	Deque() { // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		first = last = NULL;
 		volume = 0;
 	}
 
-	//------------------Итераторы------------------------------
-	void swap(Deque* dq)//swap итератор юзаем как буфер, свапаем основные поля
+	//------------------РС‚РµСЂР°С‚РѕСЂС‹------------------------------
+	void swap(Deque* dq)//swap РёС‚РµСЂР°С‚РѕСЂ СЋР·Р°РµРј РєР°Рє Р±СѓС„РµСЂ, СЃРІР°РїР°РµРј РѕСЃРЅРѕРІРЅС‹Рµ РїРѕР»СЏ
 	{
 		int temp = this->volume;
 		Iterator iter_end = this->end();
 		Iterator iter_begin = this->begin();
 
 		this->first = dq->first;
-		this->last = dq->last;//меняем данные первого Deque
+		this->last = dq->last;//РјРµРЅСЏРµРј РґР°РЅРЅС‹Рµ РїРµСЂРІРѕРіРѕ Deque
 		this->volume = dq->volume;
 
 		dq->first = iter_begin.m_Ptr;
-		dq->last = iter_end.m_Ptr;//и данные второго
+		dq->last = iter_end.m_Ptr;//Рё РґР°РЅРЅС‹Рµ РІС‚РѕСЂРѕРіРѕ
 		dq->volume = temp;
 	}
 	
 	Iterator begin() {
-		return Iterator(first);//чисто возвращает первый элемент
+		return Iterator(first);//С‡РёСЃС‚Рѕ РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 	}
 
-	Iterator insert(Iterator pos, const Type& key)//insert, который возвращает измененный pos
+	Iterator insert(Iterator pos, const Type& key)//insert, РєРѕС‚РѕСЂС‹Р№ РІРѕР·РІСЂР°С‰Р°РµС‚ РёР·РјРµРЅРµРЅРЅС‹Р№ pos
 	{
 		Node* newleaf = Node::create(key);
 		newleaf->prev = pos.m_Ptr;
-		newleaf->next = pos->next;//переобазначили связи
+		newleaf->next = pos->next;//РїРµСЂРµРѕР±Р°Р·РЅР°С‡РёР»Рё СЃРІСЏР·Рё
 		pos->next = newleaf;
 		pos.m_Ptr = newleaf;
 		return pos;
@@ -139,18 +139,18 @@ public:
 	Iterator erase(Iterator pos)
 	{
 		Node* temp = pos->next;
-		pos->prev->next = pos->next;//переобазначили связи
+		pos->prev->next = pos->next;//РїРµСЂРµРѕР±Р°Р·РЅР°С‡РёР»Рё СЃРІСЏР·Рё
 		pos->next->prev = pos->prev;
 		delete pos.m_Ptr;
-		volume--;//уменьшаем размер
-		return temp;//вернул следующий листок
+		volume--;//СѓРјРµРЅСЊС€Р°РµРј СЂР°Р·РјРµСЂ
+		return temp;//РІРµСЂРЅСѓР» СЃР»РµРґСѓСЋС‰РёР№ Р»РёСЃС‚РѕРє
 	}
 
-	Iterator erase(Iterator begin, Iterator end)//тот же erase но много раз
+	Iterator erase(Iterator begin, Iterator end)//С‚РѕС‚ Р¶Рµ erase РЅРѕ РјРЅРѕРіРѕ СЂР°Р·
 	{
 		while (begin != end)
 		{
-			begin = this->erase(begin);//как раз до конца дело не дойдет
+			begin = this->erase(begin);//РєР°Рє СЂР°Р· РґРѕ РєРѕРЅС†Р° РґРµР»Рѕ РЅРµ РґРѕР№РґРµС‚
 		}
 		return end;
 	}
@@ -159,7 +159,7 @@ public:
 	{
 		if (iter.m_Ptr != NULL)
 		{
-			return false;// при создании deque значения first и last равны NULL
+			return false;// РїСЂРё СЃРѕР·РґР°РЅРёРё deque Р·РЅР°С‡РµРЅРёСЏ first Рё last СЂР°РІРЅС‹ NULL
 		}
 		else
 		{
@@ -169,15 +169,15 @@ public:
 
 
 	Iterator end() {
-		return Iterator(last);//вернули последний
+		return Iterator(last);//РІРµСЂРЅСѓР»Рё РїРѕСЃР»РµРґРЅРёР№
 	}
-	//------------------Итераторы------------------------------
+	//------------------РС‚РµСЂР°С‚РѕСЂС‹------------------------------
 	
 	~Deque() {
 		while (volume != 0) {
-			Node* temp = first; // Чтобы не потерять указатель
-			first = temp->next; // Второй элемент -- новый первый
-			if (first == NULL) last = NULL; // Если был только один элемент, то следующего не будет
+			Node* temp = first; // Р§С‚РѕР±С‹ РЅРµ РїРѕС‚РµСЂСЏС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ
+			first = temp->next; // Р’С‚РѕСЂРѕР№ СЌР»РµРјРµРЅС‚ -- РЅРѕРІС‹Р№ РїРµСЂРІС‹Р№
+			if (first == NULL) last = NULL; // Р•СЃР»Рё Р±С‹Р» С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЌР»РµРјРµРЅС‚, С‚Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РЅРµ Р±СѓРґРµС‚
 			volume--;
 			delete temp;
 		}
@@ -185,38 +185,38 @@ public:
 	}
 
 	bool isempty() {
-		return (first == NULL); // То же самое, что и if (first == NULL)
-	}// Только сразу вернёт ответ
+		return (first == NULL); // РўРѕ Р¶Рµ СЃР°РјРѕРµ, С‡С‚Рѕ Рё if (first == NULL)
+	}// РўРѕР»СЊРєРѕ СЃСЂР°Р·Сѓ РІРµСЂРЅС‘С‚ РѕС‚РІРµС‚
 
 	int size() const { return volume; }
 
 	void insertfirst(Type data) {
 		Node* newleaf = Node::create(data);
-		if (first == NULL) { // Если нет первого
-			first = last = newleaf; // То первый и последний это новый
+		if (first == NULL) { // Р•СЃР»Рё РЅРµС‚ РїРµСЂРІРѕРіРѕ
+			first = last = newleaf; // РўРѕ РїРµСЂРІС‹Р№ Рё РїРѕСЃР»РµРґРЅРёР№ СЌС‚Рѕ РЅРѕРІС‹Р№
 		}
-		else { // Если же есть, то устанавливаем связи
-			first->prev = newleaf; // Предыдущий у первого будет новый
-			newleaf->next = first; // Следующий у нового -- первый
+		else { // Р•СЃР»Рё Р¶Рµ РµСЃС‚СЊ, С‚Рѕ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРІСЏР·Рё
+			first->prev = newleaf; // РџСЂРµРґС‹РґСѓС‰РёР№ Сѓ РїРµСЂРІРѕРіРѕ Р±СѓРґРµС‚ РЅРѕРІС‹Р№
+			newleaf->next = first; // РЎР»РµРґСѓСЋС‰РёР№ Сѓ РЅРѕРІРѕРіРѕ -- РїРµСЂРІС‹Р№
 			first = newleaf;
-			// Новый стал первым
+			// РќРѕРІС‹Р№ СЃС‚Р°Р» РїРµСЂРІС‹Рј
 		}
-		volume++; // Добавил узел -- увеличил объем
+		volume++; // Р”РѕР±Р°РІРёР» СѓР·РµР» -- СѓРІРµР»РёС‡РёР» РѕР±СЉРµРј
 	}
 	
 	void deletefirst() {
-		if (isempty()) cout << "Deque is empty" << endl; // Если пуста, всё готово
+		if (isempty()) cout << "Deque is empty" << endl; // Р•СЃР»Рё РїСѓСЃС‚Р°, РІСЃС‘ РіРѕС‚РѕРІРѕ
 		else {
-			Node* temp = first; // Чтобы не потерять указатель
-			first = temp->next; // Второй элемент -- новый первый
-			if (first == NULL) last = NULL; // Если был только один элемент, то следующего не будет
+			Node* temp = first; // Р§С‚РѕР±С‹ РЅРµ РїРѕС‚РµСЂСЏС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ
+			first = temp->next; // Р’С‚РѕСЂРѕР№ СЌР»РµРјРµРЅС‚ -- РЅРѕРІС‹Р№ РїРµСЂРІС‹Р№
+			if (first == NULL) last = NULL; // Р•СЃР»Рё Р±С‹Р» С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЌР»РµРјРµРЅС‚, С‚Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РЅРµ Р±СѓРґРµС‚
 			volume--;
 			delete temp;
 		}
 	}
 
 	void insertlast(Type data) {
-		if (isempty()) insertfirst(data); // Если очередь пуста, то простое добавление
+		if (isempty()) insertfirst(data); // Р•СЃР»Рё РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°, С‚Рѕ РїСЂРѕСЃС‚РѕРµ РґРѕР±Р°РІР»РµРЅРёРµ
 		else {
 			Node* newleaf = Node::create(data);
 			newleaf->prev = last;
@@ -240,8 +240,8 @@ public:
 
 	void clear() {
 		if (isempty()) cout << "Deque is empty" << endl;
-		while (!isempty()) { // Пока очередь не пуста
-			this->deletefirst(); // Удаляем первый элемент
+		while (!isempty()) { // РџРѕРєР° РѕС‡РµСЂРµРґСЊ РЅРµ РїСѓСЃС‚Р°
+			this->deletefirst(); // РЈРґР°Р»СЏРµРј РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 		}
 	}
 
@@ -254,12 +254,12 @@ public:
 		}
 	}
 
-	friend ostream& operator<<(ostream& os, Deque<Type>& deq) { // Перегрузка оператора вывода
-		deq.show(); // Просто используется функция вывода содержимого на экран
+	friend ostream& operator<<(ostream& os, Deque<Type>& deq) { // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РІС‹РІРѕРґР°
+		deq.show(); // РџСЂРѕСЃС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ РІС‹РІРѕРґР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РЅР° СЌРєСЂР°РЅ
 		return os;
 	}
 
-	friend istream& operator>>(istream& is, Deque<Type>& deq) { // Перегрузка оператора ввода
+	friend istream& operator>>(istream& is, Deque<Type>& deq) { // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РІРІРѕРґР°
 		int n = 0;
 		Type elem = 0;
 		cout << "Enter the amount of elements in deque: ";
@@ -267,7 +267,7 @@ public:
 		for (int i = 0; i < n; i++) {
 			cout << "Enter element: ";
 			cin >> elem;
-			deq.insertlast(elem); // Добавление нового элемента будет идти в конец дека
+			deq.insertlast(elem); // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р° Р±СѓРґРµС‚ РёРґС‚Рё РІ РєРѕРЅРµС† РґРµРєР°
 		}
 		return is;
 	}
