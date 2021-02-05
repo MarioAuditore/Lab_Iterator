@@ -16,6 +16,12 @@ public:
 	DequeIterator(PointerType ptr)
 		:m_Ptr(ptr) {};
 
+	~DequeIterator()
+	{
+		this->m_Ptr = NULL;// по идее я не имею права освобождать память, ведь за это ответственен деструктор Деки
+		//значит мне не остается ничего иного, кроме как занулить указатель и порвать связь итератора с контейнером
+	}
+
 	DequeIterator& operator++ ()
 	{
 		m_Ptr=m_Ptr->next;//указываем на следующий
@@ -174,6 +180,7 @@ public:
 	//------------------Итераторы------------------------------
 	
 	~Deque() {
+		/*
 		while (volume != 0) {
 			Node* temp = first; // Чтобы не потерять указатель
 			first = temp->next; // Второй элемент -- новый первый
@@ -182,6 +189,9 @@ public:
 			delete temp;
 		}
 		delete first, last;
+		*/
+
+		this->clear();
 	}
 
 	bool isempty() {
