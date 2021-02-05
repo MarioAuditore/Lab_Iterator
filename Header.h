@@ -135,9 +135,10 @@ public:
 	Iterator insert(Iterator pos, const Type& key)//insert, который возвращает измененный pos
 	{
 		Node* newleaf = Node::create(key);
-		newleaf->prev = pos.m_Ptr;
-		newleaf->next = pos->next;//переобазначили связи
-		pos->next = newleaf;
+		newleaf->prev = pos->prev;
+		newleaf->next = pos.m_Ptr;//переобазначили связи
+		pos->prev->next = newleaf;
+		pos->prev = newleaf;
 		pos.m_Ptr = newleaf;
 		return pos;
 	}
