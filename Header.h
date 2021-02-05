@@ -140,6 +140,7 @@ public:
 		pos->prev->next = newleaf;
 		pos->prev = newleaf;
 		pos.m_Ptr = newleaf;
+		volume++;
 		return pos;
 	}
 
